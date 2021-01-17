@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "caetanomatheus/laravel8-vuejs3-template",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "A configured project for Laravel 8 with Vuejs 3.",
     "keywords": [
         "framework",
         "laravel"
@@ -22,6 +22,7 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
+        "nunomaduro/phpinsights": "dev-feature/php8-and-github-action",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {
@@ -53,10 +54,10 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-root-package-install": [
+        "generate-env": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "post-create-project-cmd": [
+        "generate-key": [
             "@php artisan key:generate --ansi"
         ]
     }
