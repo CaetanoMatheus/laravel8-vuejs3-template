@@ -1,62 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<hr>
+<h1 align=center>LARAVEL 8 & VUEJS 3 TEMPLATE</h1>
+<hr>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sobre Laravel 8 & VueJS 3 Template
+Este é um projeto com algums configurações inciais para um projeto Laravel/VueJS.
 
-## About Laravel
+## Executar o Projeto com Docker
+Esta é a forma recomendada de utilização do projeto pois não depende de configurações prévias da máquina bastando apenas a instalação do [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de construir as imagens e containers é preciso que um arquivo `.env` seja criado na raiz do projeto. Este arquivo possui variàveis de ambiente que serão utilizadas tanto pelo [Docker](https://www.docker.com/) quanto pelo [Laravel](https://laravel.com/docs/8.x).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Já existe um arquivo `.env.example` que pode ser renomeado para `.env`.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Após a criação do arquivo `.env` basta rodar o comando:
+```
+  docker-compose up --build -d
+```
+Este irá criar as imagens e containers necessários para a aplicação.
 
-## Learning Laravel
+Assim que os containers estiverem rodando é preciso instalar as dependências do PHP, para isso é preciso acessar o container do PHP
+```
+  docker exec -it laravel_vue_php bash
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Agora dentro do container do PHP basta executar o comando:
+```
+  composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<br> <br>
+**OBS**: Dentro deste container podem ser executados comandos do composer e artisan
+<br> <br>
 
-## Laravel Sponsors
+Também será necessário gerar a chave da aplicação Laravel:
+```
+  composer run generate-key
+```
+ou
+```
+  php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+A aplicação pode ser acessada em: `http://localhost:7000/`
 
-### Premium Partners
+### PHPMyAdmin
+Também existe um container do PHPMyAdmin configurado.
+O PHPMyAdmin pode ser acessdo em: `http://localhost:8088/`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+### Yarn
+Também existe um container do Yarn configurado.
+Caso necessário comandos do Yarn podem ser executados da seguinte forma:
+```
+  docker-compose run --rm yarn <command>
+```
 
-## Contributing
+## Executar o Projeto
+Para executar o projeto é preciso que a máquina atenda ao seguintes requisitos.
+- [PHP ^7.4](https://www.php.net/manual/pt_BR/intro-whatis.php)
+- [Composer](https://getcomposer.org/)
+- [NodeJS](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+É preciso instalar as dependências do PHP, para isso:
+```
+  composer install
+```
+Antes de rodar a aplicação é preciso que um arquivo `.env` seja criado na raiz do projeto. Este arquivo possui variàveis de ambiente que serão utilizadas pelo [Laravel](https://laravel.com/docs/8.x).
 
-## Code of Conduct
+Já existe um arquivo `.env.example` que pode ser renomeado para `.env`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Também será necessário gerar a chave da aplicação Laravel:
+```
+  composer run generate-key
+```
+ou
+```
+  php artisan key:generate
+```
 
-## Security Vulnerabilities
+Para rodar a aplicação basta utilizar o comando:
+```
+  php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+A aplicação pode ser acessada em: `http://localhost:7000/`
 
-## License
+## Front End
+O projeto visa a criação de uma SPA com [VueJS 3](https://v3.vuejs.org/), mas nada o impede de relizar algumas poucas mudanças para usar o [VueJS 2](https://vuejs.org/) ou o [Blade](https://laravel.com/docs/8.x/blade).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Features:
+- [Eslint](https://eslint.org/)
+- [Vuex](https://next.vuex.vuejs.org/)
+- [Vue-Router](https://router.vuejs.org/)
+- [Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+
+### @ Alias
+Durante a importação de arquivos .vue ou .js pode ser utilizado o alias `@` para referenciar a pasta `/resources/js`.
+EX: ``` @/components/text/Title ```
+
+Outros alias disponíveis são: 
+- @page - Diretório /resources/js/pages
+- @component - Diretório /resources/js/components
+- @style - Diretório /resources/sass
+- @styleVariables - Arquivo /resources/sass/_variables.scss
+
+É possível gerenciar estes aliases diretamente no arquivo `webpack.mix.js`.
+
+### Compilação dos arquivos fron-end
+Caso algum arquivo dentro dos diretórios `resources/js/` ou `resources/sass/` sejam alterados é preciso fazer a compilação destes. Os arquivos compilasdos ficarão dentro do diretório `public/js/` e `public/css/` respectivamente.
+
+Para realizar a compilação dos arquivos é possível utilizar os seguintes comandos.
+
+```
+  yarn dev
+```
+Compila os arquivos desenvolvimento.
+<br> <br>
+
+```
+  yarn build
+```
+Compila os arquivos em suas versões minificadas para produção.
+<br> <br>
+
+```
+  yarn watch
+```
+Compila os arquivos para desenvolvimento mas estes não são criados nos diretórios `public/js/` e `public/css/` pois ficam em memória e são re-compilados a cada alteração. Neste caso será criado o arquivo `/public/hot`
+<br> <br>
+
+
+## Back End
+O projeto utiliza o [Laravel 8](https://laravel.com/docs/8.x) para o back end.
+
+### Features:
+- [PHP Insights](https://phpinsights.com/)
+- [PHPMyAdmin](https://www.phpmyadmin.net/)
+
+### PHP Insights
+PHP Insights é uma biblioteca para ajudar a garantir a qualidade de código PHP.
+Para executar análize basta rodar o comando:
+```
+  php artisan insights
+```
