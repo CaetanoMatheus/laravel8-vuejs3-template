@@ -20,11 +20,11 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u 1000 -d /home/dockeruser dockeruser
-RUN mkdir -p /home/dockeruser/.composer && \
-    chown -R dockeruser:dockeruser /home/dockeruser
+RUN useradd -G www-data,root -u 1000 -d /home/phpuser phpuser
+RUN mkdir -p /home/phpuser/.composer && \
+    chown -R phpuser:phpuser /home/phpuser
 
 # Set working directory
 WORKDIR /var/www/html
 
-USER dockeruser
+USER phpuser

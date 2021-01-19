@@ -14,7 +14,18 @@ services:
       - php
       - mysql
     networks:
-      - laravel_vue_template
+      - laravel_vue
+
+  php:
+    build:
+      context: ./.docker/php
+    container_name: laravel_vue_php
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 9000:9000
+    networks:
+      - laravel_vue
 
   mysql:
     image: mysql:5.7.22
@@ -26,53 +37,34 @@ services:
     volumes:
       - ./.docker/.database:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: laravel_vue_template
+      MYSQL_DATABASE: laravel_vue
       MYSQL_ROOT_PASSWORD: secret
     networks:
-      - laravel_vue_template
+      - laravel_vue
 
-  php:
-    build:
-      context: .
-    container_name: laravel_vue_php
-    volumes:
-      - ./:/var/www/html
-    ports:
-      - 9000:9000
-    networks:
-      - laravel_vue_template
-
-  composer:
-    image: composer:latest
-    container_name: laravel_vue_composer
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    networks:
-      - laravel_vue_template
-  
-  artisan:
-    build:
-      context: .
-    container_name: laravel_vue_artisan
-    entrypoint: ['/var/www/html/artisan']
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    depends_on:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: laravel_vue_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: secret
+    links:
       - mysql
+    ports:
+      - 8088:80
     networks:
-      - laravel_vue_template
+      - laravel_vue
 
   yarn:
-    image: node:14.15
-    container_name: yarn
-    entrypoint: ['yarn']
+    image: node:latest
+    container_name: laravel_vue_yarn
     working_dir: /var/www/html
+    entrypoint: ['yarn']
     volumes:
       - ./:/var/www/html
     networks:
-      - laravel_vue_template
+      - laravel_vue
 
 networks:
-  laravel_vue_template:
+  laravel_vue:
